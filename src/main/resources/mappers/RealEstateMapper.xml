@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.quiz.lesson03.mapper.RealEstateMapper">
+ 	<select id="selectRealEstateByID" parameterType="int" resultType="com.quiz.lesson03.domain.RealEstate">
+	 	SELECT
+	 		`id`
+			,`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+	 	FROM
+	 		`real_estate`
+	 	WHERE
+	 		`id` = #{id}
+ 	</select>
+ 	
+ 	<select id="selectRealEstateListByPrice" parameterType="map" resultType="com.quiz.lesson03.domain.RealEstate">
+	 	SELECT
+	 		`id`
+			,`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+	 	FROM
+	 		`real_estate`
+	 	WHERE
+	 		<![CDATA[
+	 		`rentPrice` < #{rent_price}
+	 		]]>
+	 		
+ 	</select>
+ 	
+ 	<select id="selectRealEasteListByAreaPrice" parameterType="map" resultType="com.quiz.lesson03.domain.RealEstate">
+	 	SELECT
+	 		`id`
+			,`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+	 	FROM
+	 		`real_estate`
+	 	HAVING
+	 		<![CDATA[
+	 		`area` >= #{area} and `price` <= #{price}
+	 		]]>
+	 	ORDER BY `createdAt` DESC
+	 		
+ 	</select>
+ </mapper>
