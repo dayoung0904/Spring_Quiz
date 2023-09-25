@@ -16,5 +16,18 @@ public interface RealEstateMapper {
 			@Param("rent_price")int rent_price);
 	
 	public List<RealEstate> selectRealEasteListByAreaPrice(
-			@Param("area") int area, @Param("price") int price);
+			// @Param 하나의 map이 된다.(파라미터가 2개 이상일 때)
+			@Param("area") int area, 
+			@Param("price") int price);
+	
+	// mybatis가 성공된 행의 개수를 채워서 리턴해줌
+	public int insertRealEstate(RealEstate realEstate);
+	
+	public int insertRealEstateAsField(
+			@Param("realtorId") int realtorId, 
+			@Param("address") String address, 
+			@Param("area") int area, 
+			@Param("type") String type, 
+			@Param("price") int price, 
+			@Param("rentPrice") Integer rentPrice);
 }
