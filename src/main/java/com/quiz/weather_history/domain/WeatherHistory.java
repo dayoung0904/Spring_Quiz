@@ -1,4 +1,4 @@
-package com.quiz.lesson05.weather_history.domain;
+package com.quiz.weather_history.domain;
 
 import java.util.Date;
 
@@ -69,7 +69,4 @@ public class WeatherHistory {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
-	
-	
 }

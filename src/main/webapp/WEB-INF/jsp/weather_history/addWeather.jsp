@@ -5,20 +5,20 @@
 <head>
 <meta charset="UTF-8">
 <title>날씨 정보</title>
+
+<!-- jquery 원본 : bootstrap, datepicker, slim으로 되어 있으면 datepicker불가능 -->
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
 <!-- bootstrap -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+<!-- datepicker-->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
 <!-- 내가 만든 스타일시트 -->
 <link rel="stylesheet" type="text/css" href="/css/weather_history/style.css">
-
-<!-- datepicker-->
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 	<div id="wrap">
@@ -52,12 +52,12 @@
 			<%-- 날씨 추가 --%>
 			<section class="col-10 mt-3 ml-5">
 				<h3>날씨 입력</h3>
-				<form method="post" action="/lesson05/add_weather">
+				<form method="post" action="/add-weather">
 					<div class="d-flex justify-content-between mt-5">
 						<div class="d-flex align-items-center">
 							<div class="input-label">날짜</div>
-							<input type="text" class="datepicker form-control" id="date" name="date">
-							<script>$(function(){$('.datepicker').datepicker();})</script>
+							<input type="text" class="form-control" id="date" name="date">
+							
 						</div>
 						<div class="d-flex align-items-center">
 							<div class="input-label">날씨</div>
@@ -132,5 +132,13 @@
 		</footer>
 	</div>
 
+	<script>
+		// ready : DOM tree가 완성된 후 불려지는 함수
+		$(document).ready(function() {
+			$("#date").datepicker({
+				dateFormat:"yy-mm-dd"	// 날짜 포맷
+			});
+		});
+	</script>
 </body>
 </html>
