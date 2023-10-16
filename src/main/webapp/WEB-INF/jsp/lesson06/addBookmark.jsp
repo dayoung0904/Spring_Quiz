@@ -54,7 +54,7 @@
 				// request
 				type:"POST"
 				,url:"/lesson06/quiz01/add-bookmark"
-				,date:{"name":name, "url":url}
+				,data:{"name":name, "url":url}
 			
 				// response
 				, success:function(data){
