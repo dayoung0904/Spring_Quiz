@@ -26,9 +26,9 @@
 			<tbody>
 			<c:forEach items="${bookmarks}" var="bookmark" varStatus="status">
 				<tr>
-					<th></th>
-					<th></th>
-					<th></th>
+					<th>${status.count}</th>
+					<th>${bookmark.name}</th>
+					<th><a href="${bookmark.url}" target="_blank">${bookmark.url}</a></th> <!-- target은 새탭 -->
 				</tr>
 			</c:forEach>
 			</tbody>

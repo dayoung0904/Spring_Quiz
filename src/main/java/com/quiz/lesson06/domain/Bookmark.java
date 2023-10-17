@@ -9,6 +9,7 @@ public class Bookmark {
 	private String url;
 	private Date createdAt;
 	private Date updatedAt;
+	
 	public int getId() {
 		return id;
 	}

@@ -4,7 +4,7 @@
  
  <mapper namespace= "com.quiz.lesson06.mapper.BookmarkMapper">
  
-	<select id="selectBookmark" parameterType="map" resultType="com.quiz.lesson06.domain.Bookmark">
+	<select id="selectBookmark" resultType="com.quiz.lesson06.domain.Bookmark">
 		SELECT
 			`id`
 			,`name`
@@ -14,5 +14,22 @@
 		FROM
 			`bookmark`
 	</select>
+	
+	<insert id="insertBookmark" parameterType="map">
+		INSERT INTO `bookmark`
+		(
+			`name`
+			,`url`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			#{name}
+			, #{url}
+			, NOW()
+			, NOW()
+		)
+	</insert>
  </mapper>
  
