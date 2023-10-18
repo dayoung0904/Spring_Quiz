@@ -21,29 +21,55 @@
 		</div> 
 		<div class="form-group">
 			<label for="url"><b>주소</b></label>
-			<div class="d-flex">
+			<div class="d-flex"> <!-- form-inline == d-flex -->
 				<input type="text" id="url" class="form-control col-11">
-				<button type="button" id="urlCheckBtn" class="btn btn-info col-1">중복확인</button>
+				<button type="button" id="urlCheckBtn" class="btn btn-info">중복확인</button>
 			</div>
-			<small id="urlStatusArea"></small>
+			<small id="duplicatedText" class="text-danger d-none">중복된 url 입니다.</small>
+			<small id="availableText" class="text-success d-none">저장 가능한 url 입니다.</small>
 		</div> 
 		<input type="button" id="addBtn" class="btn btn-success btn-block" value="추가">
 	</div>
 	
 <script>
 	$(document).ready(function(){
-		// 중복 확인 버튼
+		// quiz02) 중복 확인 버튼 클릭
 		$('#urlCheckBtn').on('click', function(){
-			$('#urlStatusArea').empty();
-			let name = $('#url').val().trim();
+			//alert("클릭!");
+			let url = $('#url').val().trim();
 			
 			if(url == ""){
-				$('#urlStatusArea').append('<span class="text-danger">url이 비어있습니다.</span>');
+				alert("검사할 url을 입력하세요.");
 				return;
 			}
+			
+			// DB에서 URL 중복확인 - AJAX
+			$.ajax({
+				// request
+				type:"POST" // url이 길 수 있어서
+				, url:"/lesson06/quiz02/is-duplicated-url"
+				, data:{"url":url}
+				
+				// response
+				, success:function(data){ // data => json => dictionary
+					// {"code":200, "is_duplication":true} true:중복
+					if (data.is_duplication){
+						// 중복
+						$("#duplicatedText").removeClass('d-none');
+						$("#availableText").addClass('d-none');
+					} else {
+						// 중복 아님
+						$("#duplicatedText").addClass('d-none');
+						$("#availableText").removeClass('d-none');
+					}
+				}
+				, error:function(request, status, error){
+					alert("중복확인에 실패했습니다.");
+				}
+			});
 		});
 		
-		//  url 등록 버튼
+		//  url 추가 버튼 클릭
 		$('#addBtn').on('click', function(){
 			//alert("버튼!");
 			
@@ -68,6 +94,13 @@
 			console.log(name);
 			console.log(url);
 			
+			// quiz02) 저장가능한 url인지 체크
+			if($('#availableText').hasClass('d-none')){ // availavleText d-none이 있으면 가입불가
+				alert("url 중복확인을 다시 해주세요.");
+				return;
+			}
+			
+			//  quiz01 추가하기 기능
 			$.ajax({
 				// request
 				type:"POST"
