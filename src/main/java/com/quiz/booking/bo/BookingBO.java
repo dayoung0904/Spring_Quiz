@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.quiz.booking.domain.Booking;
 import com.quiz.booking.mapper.BookingMapper;
@@ -29,8 +28,16 @@ public class BookingBO {
 		bookingMapper.insertBooking(name, date, day, headcount, phoneNumber);
 	}
 	
+	// input: name, phoneNumber		output: Booking(null or Booking)
 	public Booking getBookingByNamePhone(String name, String phoneNumber) {
-		Booking booking = bookingMapper.selectBookingByNamePhone(name, phoneNumber);
-		return booking;
+		List<Booking> bookingList = bookingMapper.selectBookingByNamePhone(name, phoneNumber);
+		// 0 1(최신) => 마지막 인덱스가 가장 최근 내용
+		// 리스트가 비어있으면 null이 아닌 [](empty List)
+		if(bookingList.isEmpty()) { // 비어있는 경우
+			return null; // null return
+		}
+		
+		// 리스트가 비어있지 않으면 마지막 객체 리턴
+		return bookingList.get(bookingList.size() - 1); // booking return
 	}
 }

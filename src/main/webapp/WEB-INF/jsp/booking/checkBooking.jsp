@@ -98,11 +98,18 @@
 			
 				// response
 				, success:function(data){
+					// {"code":400, "error-message":"데이터가 존재하지 않습니다."}
+					// {"code":200, "result":booking({"id":1, "name":...})}
+					// 2023-10-20	0 ~ 9 
 					if(data.code == 200){
-						alert("예약 조회");
-					} else{
-						alert("조회에 실패했습니다."); // logic error
-					}
+						alert("이름:" + data.result.name 
+								+ "\n날짜:" + data.result.date.substring(0, 10)
+								+ "\n일수:" + data.result.day
+								+ "\n인원:" + data.result.headcount
+								+ "\n상태:" + data.result.state);
+					} else if(data.code == 400){
+						alert(data.error-message);
+					} 
 				}
 				, error:function(request, status, error){
 					alert("예약을 조회하는데 실패했습니다.");

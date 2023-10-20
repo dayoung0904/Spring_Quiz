@@ -82,18 +82,27 @@ public class BookingController {
 	}
 	
 	// 예약 확인 기능 - ajax 통신
-	@ResponseBody
+	@ResponseBody // Model 사용 불가(view로 가지 않기 때문) > jsp에 요청할때만 가능 / model은 view와 controller의 사이에서 사용되는 것
 	@PostMapping("/search-booking")
 	public Map<String, Object> searchBooking(
 			@RequestParam("name") String name,
 			@RequestParam("phoneNumber") String phoneNumber){
 		
 		// db 조회
-		//Booking booking = bookingBO.getBookingByNamePhone(name, phoneNumber);
+		Booking booking = bookingBO.getBookingByNamePhone(name, phoneNumber);
 		
+		// 응답값
+		// {"code":400, "error-message":"데이터가 존재하지 않습니다."}
+		// {"code":200, "result":booking({"id":1, "name":...})}
 		Map<String, Object> result = new HashMap<>();
-		result.put("code", 200);
-		result.put("result", "success");
+		if(booking == null) {
+			result.put("code", 400);
+			result.put("error-message", "데이터가 존재하지 않습니다.");
+		} else {
+			result.put("code", 200);
+			result.put("result", booking);
+		}
+		
 		return result;
 	}
 }
