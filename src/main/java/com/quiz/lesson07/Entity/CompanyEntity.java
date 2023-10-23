@@ -21,7 +21,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Builder
+@Builder(toBuilder = true) // setter 대용, tobuilder = true 수정 허용
 @Entity
 @Table(name="company")
 public class CompanyEntity {
